@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h2>Dynamic Table</h2>
+	<div id="test"></div>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		class Table{
+			 constructor(head,id){
+			 	this.head = head;
+			 	this.id = id;
+			 	this.count = 1;
+			 }
+			addheader(){
+				var out = '<tr>';
+				for(var i in this.head) out += '<th>'+this.head[i]+'</th>';
+				out+='</tr>';
+				$('#form'+this.id).append(out);
+			}
+			addRow() {
+				var out = '<tr id=row'+this.id+''+this.count+'><td>'+this.count+'</td>';
+				this.count+=1;
+				var arr = this.head;
+				for(var j=1;j<arr.length;j++) 
+					out+='<td><input type="text"></td>';
+				$('#form'+this.id).append(out+'</tr>');
+			}
+			dleteRow(){
+				$('#row'+this.id+''+(this.count-1)).remove();
+				this.count--;
+			}
+			mktable(row=1){
+				var out = `<table border=1 id=form`+this.id+`></table>
+				<button id=del`+this.id+`>Delete</button>
+				<button id=add`+this.id+`>Add</button>`;
+				$("#test").append(out);
+				this.addheader();
+				for(var i=0;i<row;i++) this.addRow();
+			}
+		}
+	 function setButton(tb,id){
+		$('#add'+id).click(function(){tb.addRow();});
+		$('#del'+id).click(function(){tb.dleteRow();});
+	}
+	tb1 = new Table(["sno","Activity","Member"],1);
+	tb1.mktable(2);
+	setButton(tb1,1);
+	
+	</script>
+</body>
+</html>
