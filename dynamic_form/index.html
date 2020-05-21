@@ -9,45 +9,69 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		class Table{
-			 constructor(head,id){
-			 	this.head = head;
-			 	this.id = id;
-			 	this.count = 1;
-			 }
+			constructor(head,id,tbname){
+				this.head = head;
+				this.id = id;
+				this.count = 0;
+				this.tbname = tbname;
+			}
 			addheader(){
-				var out = '<tr>';
+				var out = '<tr id=row'+this.id+'0>';
 				for(var i in this.head) out += '<th>'+this.head[i]+'</th>';
+				out+='<th>Delete</th>';
 				out+='</tr>';
 				$('#form'+this.id).append(out);
 			}
 			addRow() {
-				var out = '<tr id=row'+this.id+''+this.count+'><td>'+this.count+'</td>';
-				this.count+=1;
+				this.count++;
+				var out = '<tr id=row'+this.id+''+this.count+'><td class='+this.tbname+'sno>'+(this.count)+'</td>';
 				var arr = this.head;
 				for(var j=1;j<arr.length;j++) 
 					out+='<td><input type="text"></td>';
+				out+=`<td><button onclick=${this.tbname}.dleteRow(${this.count})>Del</button></td>`;
 				$('#form'+this.id).append(out+'</tr>');
+
 			}
-			dleteRow(){
-				$('#row'+this.id+''+(this.count-1)).remove();
+			dleteRow(row=-1){
+				if(row==-1) row = this.count;
+				$('#row'+this.id+''+row).remove();
+				var tr = document.getElementsByClassName(this.tbname+'sno');
+				for(var i=1;i<=tr.length;i++){
+					tr[i-1].innerHTML=parseInt(i);
+				}
+				console.log(`count : ${this.count}`);
 				this.count--;
+				
+			}
+			addCol(){
+				var attr = $('#inp'+this.id).val();
+				this.head.push(attr);
+				$(`#content${this.id}`).remove();
+				this.mktable(this.count);
 			}
 			mktable(row=1){
-				var out = `<table border=1 id=form`+this.id+`></table>
-				<button id=del`+this.id+`>Delete</button>
-				<button id=add`+this.id+`>Add</button>`;
+				this.count=0;
+				var out = `<div id=content${this.id}> <table border=1 id=form${this.id}></table>
+				<button onclick=${this.tbname}.dleteRow()>Delete</button>
+				<button onclick=${this.tbname}.addRow()>Add</button>
+				<input id=inp${this.id} type=text>
+				<input type=button onclick=${this.tbname}.addCol() value=Add Column></div>`;
 				$("#test").append(out);
 				this.addheader();
 				for(var i=0;i<row;i++) this.addRow();
 			}
 		}
-	 function setButton(tb,id){
-		$('#add'+id).click(function(){tb.addRow();});
-		$('#del'+id).click(function(){tb.dleteRow();});
-	}
-	tb1 = new Table(["sno","Activity","Member"],1);
+
+	// function setButton(tb){
+	// 	$('#add'+tb.id).click(function(){tb.addRow();});
+	// 	// $('#del'+tb.id).click(function(){tb.dleteRow();});
+	// 	for(var i=1;i<tb.count;i++){
+	// 		console.log('i: ',i);
+	// 		$('#delrow'+tb.id+''+i).click(function(){console.log('i: ',i);tb.dleteRow(i);});
+	// 	}
+	// }
+	tb1 = new Table(["sno","Activity","Member"],1,'tb1');
 	tb1.mktable(2);
-	setButton(tb1,1);
 	
 	</script>
 </body>
