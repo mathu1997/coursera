@@ -1,0 +1,13 @@
+<h2>{{title}}</h2>
+<ol>
+
+  <li ng-repeat='item in list.items'>
+      <a href="" ng-if='!list.btn' ng-click='list.viewItem(item.short_name,$index)'>{{item.short_name}} {{item.name}}</a> 
+      <div ng-if='list.btn'> 
+        <h3>{{item.name}} </h3>
+        <p>{{item.description}}</p>
+      <button class="btn btn-default" ng-click='list.addToCart($index)'><span class="glyphicon glyphicon-ok"></span> But It Now!</button>
+      </div>
+  </li>
+    
+</ol>

@@ -38,7 +38,7 @@
          <button class="btn btn-default" ng-click='list.addToCart($index)'><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        
      </ul>
-     <div ng-show='list.empty' class="emptyMessage">{{list.msg}}</div>
+     <div ng-if="list.items.length<=0" class="emptyMessage">{{list.msg}}</div>
     </div>
 
     <!-- Already Bought List -->
