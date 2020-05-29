@@ -42,7 +42,7 @@
                 service.setItem(res.data);
                 list.items = service.getItems();
                 list.btn=false;
-            }).catch(function(error){
+            },function(error){
                 console.log("something went wrong! ",error);
             });
         }
