@@ -1,1 +1,47 @@
-!function(){"use strict";function t(t){var e=this;e.items=t.getItem(),e.msg="Everything is bought!",e.addToCart=function(i){t.addCart(i),e.empty=e.items.length<=0}}function e(t){this.items=t.getCart(),this.msg="Nothing bought yet."}angular.module("ShoppingListCheckOff",[]).controller("ToBuyController",t).controller("AlreadyBoughtController",e).service("ShoppingListCheckOffService",function(){var t=[{name:"Bread",quantity:2},{name:"Cookies",quantity:10},{name:"Boost",quantity:12}],e=[];this.addCart=function(i){var n=t.splice(i,1);e.push(n[0]),t.slice(i,1)},this.getItem=function(){return t},this.getCart=function(){return e}}),t.$inject=["ShoppingListCheckOffService"],e.$inject=["ShoppingListCheckOffService"]}();
+
+
+(function () {
+    'use strict';
+
+    angular.module('ShoppingListCheckOff', [])
+    .controller('ToBuyController', ToBuyController)
+    .controller('AlreadyBoughtController',AlreadyBoughtController)
+    .service('ShoppingListCheckOffService',ShoppingListCheckOffService);
+    ToBuyController.$inject = ['ShoppingListCheckOffService'];
+    function ToBuyController(service){
+        var list = this;
+        list.items = service.getItem();
+        list.msg = 'Everything is bought!';
+        list.addToCart = function(itemsIndex){
+            service.addCart(itemsIndex);
+        }
+    }
+    AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+    function AlreadyBoughtController(service){
+        var cart = this;
+        cart.items = service.getCart();
+        cart.msg = 'Nothing bought yet.';
+    }
+    
+    function ShoppingListCheckOffService(){
+        var service = this;
+        var items = [
+            {'name':'Bread','quantity':2},
+            {'name':'Cookies','quantity':10},
+            {'name':'Boost','quantity':12}
+        ];
+        var cart = [];
+        service.addCart = function (itemIndex){
+            var item = items.splice(itemIndex,1);
+            cart.push(item[0]);
+            items.slice(itemIndex,1);
+        }
+        
+        service.getItem = function (){
+            return items;
+        }
+        service.getCart = function (){
+            return cart;
+        }
+    }
+})();
