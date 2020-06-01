@@ -21,16 +21,16 @@
   </style>
   </head>
 <body ng-app="NarrowItDownApp">
-   <div class="container" ng-controller="NarrowItDownController">
+   <div class="container" ng-controller="NarrowItDownController as narrow">
      <div class="row">
       <h1>Narrow Down Your Chinese Menu Choice</h1>
-      <input type="text" id="search" placeholder="search term to Narrow It Down" ng-change='search()'  ng-model="keyValue" style="padding: 10px; margin-bottom: 20px;">
+      <input type="text" id="search" placeholder="search term to Narrow It Down" ng-change='narrow.search()'  ng-model="narrow.keyValue" style="padding: 10px; margin-bottom: 20px;">
      </div>
      <div class="row">
       <!-- found-items should be implemented as a component -->
       <p>Example : Lets Try "soup".</p>
       <h2>Founded Items :</h2>
-      <found-items items="items" error-msg="error" key-value="keyValue"></found-items>
+      <found-items items="narrow.items" error-msg="narrow.error" key-value="narrow.keyValue"></found-items>
      </div>
     
   </div>

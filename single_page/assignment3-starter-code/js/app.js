@@ -1,1 +1,109 @@
-!function(){"use strict";function e(e,t){e.items=[],e.error=t.Message,e.keyValue="",t.fetchData().then(r=>{e.items=r.data.menu_items,e.error=t.Message}).catch(t=>e.error=t.message),e.search=(()=>{e.items=t.getMatchedMenuItems(e.keyValue),e.error=t.Message})}function t(e){var t=this;console.log(t.items),t.items=e.getMatchedMenuItems(t.keyValue),t.onRemove=(e=>{t.items.splice(e,1)})}function r(e){var t=this,r=[];t.Message="Loading...",t.fetchData=(()=>{console.log("Entered into FetchData");var n=e({method:"GET",url:"https://davids-restaurant.herokuapp.com/menu_items.json"});return n.then(e=>r=e.data.menu_items,e=>t.message="something Wents wrong !!!"),n}),t.getMatchedMenuItems=function(e){var n=[];return e=(e=e||"").toLowerCase(),r.length>0&&r.forEach(function(t){-1!==t.description.toLowerCase().indexOf(e)&&n.push(t)}),n.length<=0&&(t.Message="Element Not Found !!!"),n}}angular.module("NarrowItDownApp",[]).controller("NarrowItDownController",e).controller("FoundController",t).service("MenuSearchService",r).directive("foundItems",function(){return{templateUrl:"foundedItems.html",scope:{items:"<",keyValue:"<",errorMsg:"<"},controller:t,controllerAs:"fitems",bindToController:!0}}).filter("match",function(){return(e,t,r)=>{if(""===t)return e;$(".description"+r).html(e.replace(t,"<span class=highlight>"+t+"</span>"))}}),e.$inject=["$scope","MenuSearchService"],t.$inject=["MenuSearchService"],r.$inject=["$http"]}();
+(function () {
+    'use strict';
+    angular.module('NarrowItDownApp', [])
+        .controller('NarrowItDownController', NarrowItDownController)
+        .controller('FoundController', FoundController)
+        .service('MenuSearchService', MenuSearchService)
+        .directive('foundItems', FoundItems)
+        .filter('match', getMatched);
+
+
+
+    // Controller NarrowDown
+    NarrowItDownController.$inject = ['MenuSearchService'];
+    function NarrowItDownController(service) {
+        var narrow = this;
+        narrow.items = [];
+        narrow.error = service.Message;
+        narrow.keyValue = '';
+        service.fetchData().then(
+            (res) => {
+                narrow.items = res.data.menu_items;
+                narrow.error = service.Message;
+            }
+        ).catch(
+            (error) => narrow.error = error.message
+        );
+        narrow.search = () => {
+            narrow.items = service.getMatchedMenuItems(narrow.keyValue);
+            narrow.error = service.Message;
+        }
+    }
+
+
+    // Filter Match
+    function getMatched() {
+        return (des, keyValue, id) => {
+            keyValue = keyValue || '';
+            keyValue = keyValue.toLowerCase();
+            if (keyValue !== '')
+                $('.description'+id).html(des.replace(keyValue, ('<span class=highlight>' + keyValue + '</span>')));
+            else return des;
+        }
+    }
+
+
+
+    // Directive for items Found
+    function FoundItems() {
+        var ddo = {
+            templateUrl: 'foundedItems.html',
+            scope: {
+                items: '<',
+                keyValue: '<',
+                errorMsg: '<'
+            },
+            controller: FoundController,
+            controllerAs: 'fitems',
+            bindToController: true
+        };
+        return ddo;
+    }
+
+
+
+    // Directive Controller
+    FoundController.$inject = ['MenuSearchService'];
+    function FoundController(service) {
+        var fitems = this;
+        console.log(fitems.items);
+        fitems.items = service.getMatchedMenuItems(fitems.keyValue);
+        fitems.onRemove = (index) =>{
+            var item = fitems.items.splice(index, 1);
+        }
+    }
+
+
+
+    // Service 
+    MenuSearchService.$inject = ['$http'];
+    function MenuSearchService($http) {
+        var service = this;
+        var items = [];
+        service.Message = "Loading...";
+        service.fetchData = () => {
+            console.log("Entered into FetchData");
+            var response = $http({
+                method: 'GET',
+                url: 'https://davids-restaurant.herokuapp.com/menu_items.json',
+            });
+            response.then(
+                (res) => items = res.data.menu_items,
+                (res) => service.message = "something Wents wrong !!!"
+            )
+            return response;
+        }
+        service.getMatchedMenuItems = function (keyValue) {
+            var found = [];
+            keyValue = keyValue || '';
+            keyValue = keyValue.toLowerCase();
+            if (items.length>0)
+                items.forEach(function (value) {
+                    var des = value.description;
+                    if (des.toLowerCase().indexOf(keyValue) !== -1) found.push(value);
+                });
+            if (found.length <= 0) service.Message = "Element Not Found !!!";
+            return found;
+        }
+    }
+})();
