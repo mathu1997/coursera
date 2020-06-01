@@ -1,13 +1,17 @@
-<h2>{{title}}</h2>
+<h2>{{list.title}}</h2>
 <ol>
 
   <li ng-repeat='item in list.items'>
-      <a href="" ng-if='!list.btn' ng-click='list.viewItem(item.short_name,$index)'>{{item.short_name}} {{item.name}}</a> 
-      <div ng-if='list.btn'> 
+    <div ng-if='!list.listType'>
+      <a href=""  ng-click='list.onLink({sname:item.short_name,index:$index})'>{{item.short_name}} {{item.name}}</a> 
+      <button class="btn btn-default" ng-click='list.onRemove({index:$index})'><span class="glyphicon glyphicon-delete"></span> Remove</button>
+    </div>
+      <div ng-if='list.listType'> 
         <h3>{{item.name}} </h3>
         <p>{{item.description}}</p>
-      <button class="btn btn-default" ng-click='list.addToCart($index)'><span class="glyphicon glyphicon-ok"></span> But It Now!</button>
+      <button class="btn btn-default" ng-click='list.onBuy({index:$index})'><span class="glyphicon glyphicon-ok"></span> But It Now!</button>
       </div>
   </li>
     
 </ol>
+<div class="error">Warning!!! cookies added!!!</div>
