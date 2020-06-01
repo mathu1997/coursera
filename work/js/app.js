@@ -8,20 +8,50 @@
     .controller('AlreadyBoughtController',AlreadyBoughtController)
     .service('ShoppingListCheckOffService',ShoppingListCheckOffService)
     .service('validateList',validateList)
-    .directive('shoppingList',ShoppingList)
+    .directive('shoppingList',ShoppingListDerictive)
     .directive('cartList',CartList);
 
-    function ShoppingList(){
+    function ShoppingListDerictive(){
         var ddo = {
             templateUrl:'shoppingList.html',
             scope:{
-                list:'=myList',
-                title:'@title'
-            }
+                items:'<',
+                title:'<',
+                onLink:'&',
+                onBuy:'&',
+                onRemove:'&',
+                listType:'<',
+            },
+            Link:ShoppingListDerictiveLink,
+            controller:ShoppingList,
+            controllerAs:'list',
+            bindToController:true
         };
         return ddo;
     }
-
+    function ShoppingListDerictiveLink(scope,element,attrs,controller){
+        scope.$watch('list.checkCookies()',function(newValue,oldValue){
+            var warningElem = element.find('div.error');
+            console.log(warningElem);
+            if(newValue===true){
+                warningElem.css("display",'block');
+            }
+            else{
+                warningElem.css("display",'none');
+            }
+        });
+    }
+    function ShoppingList(){
+        var list = this;
+        list.checkCookies = function (){
+            console.log(list);
+            for(var i=0;i<list.items.length;i++){
+                if(list.items[i].name.toLowerCase().indexOf('cookie') !==-1)
+                return true;
+            }
+            return false;
+        }
+    }
     function CartList(){
         var ddo = {
             template:`<li ng-repeat='item in cart.items'>Bought {{item.quantity}} {{item.name}}</li>`,
@@ -33,22 +63,25 @@
     ToBuyController.$inject = ['ShoppingListCheckOffService','validateList'];
     function ToBuyController(service,valid){
         var list = this;
+        list.title = 'Shopping List Category :';
         list.error='';
         list.btn=false;
         list.items = service.getItems();
         list.msg = service.getErrorMsg();
         list.menu = function(){
             service.getMenu().then(function(res){
+                list.title = 'Shopping List Category :';
                 service.setItem(res.data);
                 list.items = service.getItems();
                 list.btn=false;
-            }).catch(function(error){
+            },function(error){
                 console.log("something went wrong! ",error);
             });
         }
         list.menu();
         list.viewItem = function(sname,id){
             service.viewCat(sname,id).then(function(res){
+                list.title = 'Shopping List menu :';
                 list.items = res.data.menu_items;
                 console.log(res.data.menu_items);
                 service.setItem(list.items);
@@ -65,6 +98,9 @@
                 list.menu();
             }
         };
+        list.remove = function(index){
+            service.removeItem(index);
+        }
         list.addItem = function(){
             var name = list.prod;
             var qty = list.qty;
@@ -82,6 +118,7 @@
     AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
     function AlreadyBoughtController(service){
         var cart = this;
+        cart.title = "Detail view of Cart Item :";
         cart.items = service.getCart();
         cart.msg = 'Nothing bought yet.';
         cart.btn=false;
@@ -107,9 +144,12 @@
         }
         var items = [];
         var cart = [];
+        service.removeItem = function (index){
+            var item = items.splice(index,1);
+            return item[0];
+        }
         service.addCart = function (itemIndex){
-            var item = items.splice(itemIndex,1);
-            cart.push(item[0]);
+            cart.push(service.removeItem(itemIndex));
         }
         service.viewCat = function(sname){
             return $http({
@@ -145,7 +185,6 @@
               }
               
               items = categories.filter(checkItem);
-              console.log(items);
         }
         service.getItems = function (){
             return items;
