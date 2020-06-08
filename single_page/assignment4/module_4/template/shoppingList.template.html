@@ -1,0 +1,9 @@
+<h2>{{$ctrl.title}}</h2>
+<ol>
+    <li ng-repeat="item in $ctrl.items" ui-sref="list.items-detail({itemId:$index})">
+        {{item.qty}} bags {{item.name}}
+        <button ng-click="$ctrl.remove($index)">Remove</button>
+        <loading-spinner></loading-spinner>
+    </li>
+</ol>
+<div ng-if="$ctrl.warning" class="error">Cookies Found !!!!</div>

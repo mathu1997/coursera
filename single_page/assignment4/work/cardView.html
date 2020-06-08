@@ -1,0 +1,39 @@
+<style>
+    .card{
+        width: 18rem;
+        margin: 10px;
+        box-shadow: 7px 5px 1px 1px rgba(0, 0, 255, .2);
+        display: flex;
+        justify-content: space-between;
+    }
+    .card .card-footer{
+        display: flex;
+        flex-direction: column;
+    }
+    .btn{
+        margin: 10px;
+    }
+    
+</style>
+<div class="row" >
+    <div class="col  card-deck" ng-repeat="item in $ctrl.items">
+        <div class="card">
+            <div class="card-header">{{item.name}}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">{{item.description}}</p>
+                <div>
+                    <p>Price : {{item.price_large}}</p>
+                    <p>Quantity : {{item.large_portion_name}}</p>
+                </div>
+                <div class="footer">
+                <div class="card-footer">
+                    <a href="" ng-click="$ctrl.onBuy({index:$index})" class="btn btn-primary">Buy Now!</a>
+                    <a href="" ng-click="$ctrl.onCart({index:$index})" class="btn btn-success">Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

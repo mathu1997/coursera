@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>ShopingApplication</title>
+</head>
+<body ng-app="ShoppingApp">
+    <h1>Shoping List with Events : </h1>
+    <button ui-sref="insert" ui-sref-active="active" class="btn btn-primary">Insert</button>
+    <button ui-sref="list" class="btn btn-secondary">Shopping List</button>
+    <ui-view></ui-view>
+    
+    <loading-spinner></loading-spinner>
+
+    
+    <script src="lib/jquery-3.1.0.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+
+    <script src="src/shoppingList.module.js"></script>
+    <script src="src/shoppingList.service.js"></script>
+    <script src="src/shoppingList.controller.js"></script>
+    <script src="src/shoppingList.component.js"></script>
+    <script src="src/spinner.component.js"></script>
+    <script src="src/router.js"></script>
+</body>
