@@ -1,7 +1,14 @@
 <h2 id="header">{{$ctrl.category.name}} Items</h2>
 <div class="container">
+    <div class="map">
+        <a ui-sref="home">Home</a>
+        <span> > </span>
+        <a ui-sref="category">Category</a>
+        <span> > </span>{{$ctrl.category.name}}
+    </div>
+    
     <div class="row">
-        <div class="col-lg-4 col-md-6" ng-repeat="item in $ctrl.items">
+        <div class="col-lg-4 col-md-6 d-flex justify-content-center align-items-stretch" ng-repeat="item in $ctrl.items">
             <div class="card item-card" style="width: 18rem;" >
                 <div id="item-id">{{item.id}}</div>
                 <img class="card-img-top" src="{{item.short_name | srcItemFilter :$ctrl.category.short_name}}" alt={{item.name}}>
