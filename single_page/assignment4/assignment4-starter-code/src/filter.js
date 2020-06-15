@@ -6,7 +6,7 @@ angular.module('Restaurant')
 
 function srcFilter(){
     return function (sname){
-        return `../images/menu/${sname}/${sname}.jpg`;
+        return `images/menu/${sname}/${sname}.jpg`;
     }
 }
 
@@ -20,6 +20,6 @@ function urlFilter(){
 
 function srcItemFilter(){
     return function (sname,cat){
-        return `../images/menu/${cat}/${sname}.jpg`;
+        return `images/menu/${cat}/${sname}.jpg`;
     }
 }
