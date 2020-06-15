@@ -58,6 +58,7 @@ body{
 .item-card{
     position: relative;
     margin-bottom: 20px;
+    box-shadow: 10px 10px 20px 2px rgb(32, 32, 32);
 }
 .item-card #item-id{
     background-color: red;
