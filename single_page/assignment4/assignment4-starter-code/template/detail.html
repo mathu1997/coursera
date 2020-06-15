@@ -1,0 +1,40 @@
+<h2 id="header">{{$ctrl.category.name}} Items</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6" ng-repeat="item in $ctrl.items">
+            <div class="card item-card" style="width: 18rem;" >
+                <div id="item-id">{{item.id}}</div>
+                <img class="card-img-top" src="{{item.short_name | srcItemFilter :$ctrl.category.short_name}}" alt={{item.name}}>
+                <div class="card-body d-flex flex-column">
+                    <h5  class="card-title" style="text-align: center;min-height: 50px; max-height: 50px; overflow: auto;">{{item.name}}</h5>
+                    <div style="min-height: 100px; max-height: 100px; overflow: auto; margin: 10px;">
+                        <p  class="card-text">{{item.description}}</p>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Portion</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Large</th>
+                                <td>{{item.large_portion_name}}</td>
+                                <td>${{item.price_large}}</td>
+                            </tr>
+                            <tr>
+                                <th>Small</th>
+                                <td>{{item.small_portion_name}}</td>
+                                <td>${{item.price_small}}</td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

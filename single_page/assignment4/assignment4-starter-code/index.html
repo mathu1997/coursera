@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Shopping List Check Off</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="lib/jquery-3.1.0.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="lib/bootstrap.min.js"></script>
+</head>
+
+<body ng-app="Restaurant">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" ng-controller="navBarController as nav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a ui-sref="home" class="navbar-brand">{{nav.title}}</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+            <a class="nav-link" ui-sref="home" ui-sref-active="active">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" ui-sref="category" ui-sref-active="active">Categories</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" ui-sref="items" ui-sref-active="active">SpecialItems</a>
+            </li>
+        </ul>
+            
+        </div>
+    </nav>
+    <div ng-controller="spinnerController as spin">
+        <div ng-if="spin.loading" class="overflow d-flex justify-content-center">
+            <img id="loader" src="img/ajax-loader.gif">
+        </div>
+    </div>
+    
+    <ui-view></ui-view>
+
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+    
+    <script src="src/restaurant.module.js"></script>
+    <script src="src/restaurant.controller.js"></script>
+    <script src="src/service.js"></script>
+    <script src="src/filter.js"></script>
+    <script src="src/directive.js"></script>
+    <script src="src/router.js"></script>
+    
+
+</body>
+
+</html>

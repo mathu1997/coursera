@@ -1,0 +1,16 @@
+<h2 id="header">View Items</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 d-flex justify-content-center" style="margin-bottom:50px;" 
+        ng-repeat="item in $ctrl.items" ng-if="$index!=0" >
+            <menu-tile 
+                class="d-flex  align-items-stretch"
+                title="{{item.name}}"
+                src = "{{item.short_name | srcItemFilter :$ctrl.category}}"
+                content = "{{item.description}}"
+                sref = "{{item.short_name | urlFilter:'detail':'index'}}"
+                btnval = "View"
+            ></menu-tile>
+        </div>
+    </div>
+</div>

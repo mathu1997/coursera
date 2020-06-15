@@ -1,0 +1,11 @@
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src={{$ctrl.src}} alt={{$ctrl.title}}>
+    <div class="card-body d-flex flex-column">
+        <h5  class="card-title" style="text-align: center;min-height: 50px; max-height: 50px; overflow: auto;">{{$ctrl.title}}</h5>
+        <div ng-if="$ctrl.content" style="min-height: 100px; max-height: 100px; overflow: auto;">
+            <p  class="card-text">{{$ctrl.content}}</p>
+        </div> 
+        <a ui-sref="{{$ctrl.sref}}" class="btn btn-primary">{{$ctrl.btnval}}</a>
+    </div>
+</div>
