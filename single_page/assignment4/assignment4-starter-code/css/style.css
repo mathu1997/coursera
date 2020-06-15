@@ -69,6 +69,13 @@ body{
     position: absolute;
 }
 
+.item-card #item-star .fa-star{
+    transform: scale(2);
+    margin: 10px;
+}
+.fa.fa-star.checked {
+    color: orange;
+  }
 .map{
     margin: 20px;
 }

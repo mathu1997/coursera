@@ -12,6 +12,14 @@
             <div class="card item-card" style="width: 18rem;" >
                 <div id="item-id">{{item.id}}</div>
                 <img class="card-img-top" src="{{item.short_name | srcItemFilter :$ctrl.category.short_name}}" alt={{item.name}}>
+                <div class="star-content">
+                    <div id="item-star" class="d-flex justify-content-end" >
+                        <span ng-repeat="i in $ctrl.range">
+                            <i ng-if="i<=item.rand" class="fa fa-star checked"></i> 
+                            <i ng-if="i>item.rand" class="fa fa-star"></i>
+                        </span>
+                </div>
+                </div>
                 <div class="card-body d-flex flex-column">
                     <h5  class="card-title" style="text-align: center;min-height: 50px; max-height: 50px; overflow: auto;">{{item.name}}</h5>
                     <div style="min-height: 100px; max-height: 100px; overflow: auto; margin: 10px;">

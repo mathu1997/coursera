@@ -35,8 +35,15 @@ function CategoryController(category){
 ItemController.$inject=['items','$stateParams'];
 function ItemController(items,sp){
     var $ctrl = this;
+    console.log($ctrl.rand);
     $ctrl.items = items.menu_items;
+    for(item in $ctrl.items){
+        console.log($ctrl.items[item]);
+        $ctrl.items[item].rand=Math.floor(Math.random() * 5);
+    }
+    console.log($ctrl.items);
     $ctrl.category = items.category;
+    $ctrl.range = [0,1,2,3,4];
     console.log("name",$ctrl.category);
 }
 
