@@ -116,7 +116,7 @@ nav .search-container button {
     background-color: #4CAF50;
     border: 1px solid green; 
     color: white;
-    padding: 10px 24px; 
+    padding: 10px 10px; 
     cursor: pointer; 
     margin-bottom: 10px;
 }
@@ -167,6 +167,7 @@ nav .search-container button {
 .content h2 .fa.fa-trophy{
     color: gold;
     margin-left: 10px;
+    
 }
 .content p{
     width: 50%;
@@ -174,6 +175,9 @@ nav .search-container button {
     color: lightsteelblue;
     text-align: justify;
     padding: 10px;
+    max-height: 100px;
+    overflow: auto;
+    margin-bottom: 20px;
 }
 
 
@@ -181,9 +185,10 @@ nav .search-container button {
 .tbcontainer{
     background-color: white;
     position: relative;
-    top: -325px;
+    top: -250px;
     padding: 25px;
     margin: 25px 5%;
+    overflow: auto;
 }
 .table{
     background-color: white;
@@ -219,10 +224,14 @@ nav .search-container button {
     text-align: left;
     line-height: 50px;
 }
-.table tr td:nth-child(4){color: gold;}
-.table tr td:nth-child(5){color: silver;}
+.table tr .profile{
+    display: inline-flex;
+}
+.table tr td:nth-child(4){color: rgb(200, 170, 0);}
+.table tr td:nth-child(5){color: rgb(172, 172, 172);}
 .table tr td:nth-child(6){color: brown;}
 .table tr td:nth-child(7){color: green;}
+
 
 
 @media (max-width: 992px){
@@ -286,6 +295,7 @@ nav .search-container button {
     }
     .table{
         box-shadow: none;
+        min-width: 400px;
     }
     .table thead{
         display: none;
