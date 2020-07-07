@@ -113,32 +113,27 @@ nav .search-container button {
     justify-content: flex-end;
 }
 .btn-group button {
-    background-color: #4CAF50; /* Green background */
-    border: 1px solid green; /* Green border */
-    color: white; /* White text */
-    padding: 10px 24px; /* Some padding */
-    cursor: pointer;  /* Float the buttons side by side */
+    background-color: #4CAF50;
+    border: 1px solid green; 
+    color: white;
+    padding: 10px 24px; 
+    cursor: pointer; 
     margin-bottom: 10px;
 }
   
-  /* Clear floats (clearfix hack) */
   .btn-group:after {
     content: "";
     clear: both;
     display: table;
   }
   
-  .btn-group button:not(:last-child) {
-    border-left: none; /* Prevent double borders */
-  }
 
-  /* Add a background color on hover */
+
   .btn-group button:hover,.btn-group button.active,.btn-group button:focus {
     background-color: #3e8e41;
     border: none;
   }
 
-/* container */
 .container{
     height: max-content;
     border-radius: 10px;
@@ -192,7 +187,7 @@ nav .search-container button {
 }
 .table{
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     width: 100%;
     border-collapse: collapse;
 }
@@ -301,7 +296,7 @@ nav .search-container button {
     }
     .table tr{
         margin-bottom: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     }
     .table td{
         text-align: right;
