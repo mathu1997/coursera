@@ -1,0 +1,126 @@
+<style>
+    .submitbtn{
+        margin: 20px;
+        display: flexbox; 
+        justify-content: center;
+    }
+    .submitbtn input{
+        margin-right: 20px;
+    }
+    .error{
+        color: red;
+        margin-top: 0px;
+        font-weight: bold;
+        font-size: medium;
+    }
+    .ng-touched.ng-valid{
+        border:2px green solid;
+    }
+    .ng-touched.ng-invalid{
+        border:2px red solid;
+    }
+    .category-tile span{
+        /* margin-left: 15px;
+        margin-bottom: 20px; */
+        text-align: center;
+        font-weight: bold;
+        height: 40px;
+        position: absolute;
+        bottom: 0;
+        left:0;
+        background-color: rgb(0,0,0,0.8);
+        width: 200px;
+    }
+    .category-tile{
+        margin-bottom: 20px;
+        position: relative;
+    }
+    label .wrap{
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        z-index: 2;
+        top:0;
+        left: 15px;
+        cursor: pointer;
+    }
+    label .wrap:hover{
+        background-color: rgba(88, 88, 253, 0.333);
+    }
+    .favitem:checked ~ label .wrap{
+        background-color: rgba(68, 68, 255, 0.333);
+        border: 2px blue solid;
+        
+    }
+    .favmenu{
+        position: relative;
+    }
+</style>
+<div class="container form">
+    <h2 style="margin-bottom: 10px;">Registeration</h2>
+    <div>
+        <form name="regForm" novalidate class="container" style="padding: 50px;">
+            <div class="form row">
+                <form-feild class="col-sm-6 col-md-6" type="name" head="First Name" id="fname" model="reg.user.fname">
+                    <span ng-if="regForm.fname.$error.required && regForm.fname.$touched" class="error">First name is required *</span>
+                </form-feild>
+                <form-feild class="col-sm-6 col-md-6" type="name" head="Last Name" id="lname" model="reg.user.lname" >
+                    <span ng-if="regForm.lname.$error.required && regForm.lname.$touched" class="error">Last name is required *</span>
+                </form-feild>
+            </div>
+            <div class="form row">
+                <form-feild class="col-sm-6 col-md-6" type="email" head="Email ID" id="email" model="reg.user.email">
+                    <span ng-if="regForm.email.$invalid && regForm.email.$touched" class="error">Email ID is Invalid *</span>
+                </form-feild>
+                <form-feild class="col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label for="pno">Phone No.:</label>
+                        <input type='tel' class="form-control" required="" pattern="(0?\d{10})" ng-model="reg.user.pno" name="pno"  placeholder="Phone No.">
+                        <small><span ng-if="regForm.pno.$invalid && regForm.pno.$touched" class="error">Phone no. is required *</span></small>
+                    </div>
+                </form-feild>
+                
+                <!-- <form-feild class="col-sm-6 col-md-6" type="text" head="Phone No." id="pno" model="reg.user.pno"> -->
+                    
+                </form-feild>
+                <form-feild class="col-sm-12 col-md-12" type="textarea" head="Address" id="add" model="reg.user.add">
+                    <span ng-if="regForm.add.$invalid && regForm.add.$touched" class="error">Address is required *</span>
+                </form-feild>
+                </div>
+                <!-- {{reg.items}} -->
+                <div style=" background-color: antiquewhite; padding: 50px;">
+                    <center><h2 style="color: black; font-weight: bold;margin-bottom: 20px;">Select favourite menu</h2></center>
+                    <div class="" >
+                        <div class="row favmenu">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 col-xxs-12" style="margin:auto;" ng-repeat="item in reg.items">
+                                <input type="checkbox" hidden class="favitem" ng-model="item.selected" id="check{{item.short_name}}" value="{{item.short_name}}">
+                                <!-- {{reg.fav['{{item.short_name}}']}} -->
+                                <label for="check{{item.short_name}}">
+                                    <div class="wrap"></div>
+                                    <div class="category-tile">
+                                        <img width="200" height="200" ng-src="images/menu/{{item.short_name}}/{{item.short_name}}.jpg" alt="{{item.name}}">
+                                        <span>{{item.name}}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="well error">{{reg.errormsg}}</p>
+                    <div>
+                        <div class="submitbtn">
+                            <center>
+                                <input ui-sref="info" ng-disabled="regForm.$invalid" ng-submit="reg.submit" ng-click="reg.submit()" type="submit" class="btn btn-primary" value="Submit">
+                                <input type="reset" class="btn btn-danger" value="Reset">
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            
+            
+        </form>
+    </div>
+    
+</div>
+
+
+ 
