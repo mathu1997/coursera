@@ -1,0 +1,7 @@
+<div  class="form-group" >
+    <label ng-if="$ctrl.id" for="{{$ctrl.id}}">{{$ctrl.head}}:</label>
+    <input ng-if="$ctrl.id" type={{$ctrl.type}} class="form-control" required="" ng-model="$ctrl.model" name="{{$ctrl.id}}"  placeholder="{{$ctrl.head}}">
+    <small ng-transclude></small>
+</div>
+  
+  
