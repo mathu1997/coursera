@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <math.h>
+#include <malloc.h>
+typedef long long int lli;
+
 lli GCD(lli a,lli b){
 	if(b==0) return a;
 	return GCD(b, a % b); 
@@ -10,6 +15,7 @@ lli LCM(lli *arr,lli n)
 		ans = (abs(arr[i])*ans)/(GCD(ans,abs(arr[i])));
 	return ans;
 }
+
 int main(){
 	lli test;
 	scanf("%lld",&test);
